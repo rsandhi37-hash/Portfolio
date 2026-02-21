@@ -37,11 +37,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
             overflow-x: hidden;
             
-            /* Layered Background with Geometric Grid & Radial Glow */
+            /* Layered Background */
             background-image: 
                 radial-gradient(circle at 50% 0%, rgba(3, 218, 198, 0.15) 0%, transparent 60%),
                 linear-gradient(var(--grid-line) 1px, transparent 1px),
@@ -49,6 +47,164 @@
             background-size: 100% 100%, 40px 40px, 40px 40px;
             background-position: center top;
             background-attachment: fixed;
+        }
+
+        /* Top Navigation Bar */
+        .top-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--accent-cyan);
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .nav-btn:hover {
+            color: #fff;
+            text-shadow: 0 0 10px var(--accent-cyan);
+        }
+
+        #back-btn {
+            visibility: hidden; 
+        }
+
+        .app-title {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 18px;
+            color: var(--text-primary);
+            letter-spacing: 1px;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 40px;
+            background: rgba(15, 23, 42, 0.95);
+            min-width: 220px;
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            z-index: 1001;
+        }
+
+        .dropdown.active .dropdown-content {
+            display: block;
+            animation: slideDownFade 0.3s ease forwards;
+        }
+
+        .dropdown-content a {
+            color: var(--text-primary);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            transition: 0.3s;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(3, 218, 198, 0.1);
+            color: var(--accent-cyan);
+            padding-left: 20px;
+        }
+
+        /* Main View Container */
+        #main-view {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 100px 20px 40px;
+            transition: opacity 0.3s;
+        }
+
+        /* Iframe View */
+        #iframe-view {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 60px);
+            background: var(--bg-base);
+            z-index: 500;
+        }
+
+        #app-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #fff;
+        }
+
+        /* Loading Screen CSS */
+        #loader-view {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 60px);
+            background-color: #121212;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 600;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #333;
+            border-top: 5px solid #00E676;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        #loader-view h2 {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            font-size: 24px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Profile Header Area */
@@ -121,20 +277,18 @@
             position: relative;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
             
-            /* High-Impact Staggered Reveal Setup */
             opacity: 0;
             transform: translateY(40px);
             animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Staggered Delays */
         .link-card:nth-child(1) { animation-delay: 0.2s; }
         .link-card:nth-child(2) { animation-delay: 0.4s; }
         .link-card:nth-child(3) { animation-delay: 0.6s; }
         .link-card:nth-child(4) { animation-delay: 0.8s; }
 
-        /* Hover Effects */
         .link-card:hover {
             transform: translateY(-5px);
             border-color: var(--accent-cyan);
@@ -159,7 +313,6 @@
             transform: scaleY(1);
         }
 
-        /* Card Content Layout */
         .icon-wrapper {
             width: 50px;
             height: 50px;
@@ -211,7 +364,6 @@
             transform: translateX(5px);
         }
 
-        /* Custom Keyframe Animations */
         @keyframes slideDownFade {
             0% { opacity: 0; transform: translateY(-30px); }
             100% { opacity: 1; transform: translateY(0); }
@@ -222,7 +374,7 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Special Styling for specific cards if needed */
+        /* Special Styling for Noor Card */
         .card-noor:hover .icon-wrapper {
             background: var(--accent-magenta);
             color: #fff;
@@ -232,57 +384,136 @@
         .card-noor:hover::before {
             background: var(--accent-magenta);
         }
+        .card-noor:hover .arrow-icon {
+            color: var(--accent-magenta);
+        }
+        .external-icon-small {
+            margin-left: auto;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
     </style>
 </head>
 <body>
 
-    <div class="profile-container">
-        <div class="avatar-box">
-            <i class="fas fa-terminal"></i>
-        </div>
-        <h1>REHAN SANDHI</h1>
-        <div class="tagline">Digital Ecosystem</div>
-    </div>
-
-    <div class="links-wrapper">
+    <div class="top-navbar">
+        <button class="nav-btn" id="back-btn" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
         
-        <a href="https://rs-appstore.blogspot.com" class="link-card" target="_blank">
-            <div class="icon-wrapper"><i class="fab fa-google-play"></i></div>
-            <div class="text-content">
-                <h2>RS App Store</h2>
-                <p>Download my premium web applications</p>
-            </div>
-            <i class="fas fa-chevron-right arrow-icon"></i>
-        </a>
+        <div class="app-title">RS Ecosystem</div>
 
-        <a href="https://rehan-sandhi.blogspot.com" class="link-card" target="_blank">
-            <div class="icon-wrapper"><i class="fas fa-rss"></i></div>
-            <div class="text-content">
-                <h2>Verified Blog</h2>
-                <p>Stay updated with my latest milestones</p>
+        <div class="dropdown" id="menu-dropdown">
+            <button class="nav-btn" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="#" onclick="openLink('https://rs-appstore.blogspot.com'); return false;"><i class="fab fa-google-play"></i> RS App Store</a>
+                <a href="#" onclick="openLink('https://rehan-sandhi.blogspot.com'); return false;"><i class="fas fa-rss"></i> Verified Blog</a>
+                <a href="#" onclick="openLink('https://rehansandhi181.blogspot.com'); return false;"><i class="fas fa-user-tie"></i> Official Portfolio</a>
+                <a href="https://noor-in.netlify.app" target="_blank"><i class="fas fa-feather-alt"></i> Noor Shayari <i class="fas fa-external-link-alt external-icon-small"></i></a>
             </div>
-            <i class="fas fa-chevron-right arrow-icon"></i>
-        </a>
-
-        <a href="https://rehansandhi181.blogspot.com" class="link-card" target="_blank">
-            <div class="icon-wrapper"><i class="fas fa-user-tie"></i></div>
-            <div class="text-content">
-                <h2>Official Portfolio</h2>
-                <p>Explore my professional work & skills</p>
-            </div>
-            <i class="fas fa-chevron-right arrow-icon"></i>
-        </a>
-
-        <a href="https://noor-in.netlify.app" class="link-card card-noor" target="_blank">
-            <div class="icon-wrapper"><i class="fas fa-feather-alt"></i></div>
-            <div class="text-content">
-                <h2>Noor Shayari</h2>
-                <p>Join my social media shayari platform</p>
-            </div>
-            <i class="fas fa-chevron-right arrow-icon"></i>
-        </a>
-
+        </div>
     </div>
 
+    <div id="main-view">
+        <div class="profile-container">
+            <div class="avatar-box">
+                <i class="fas fa-terminal"></i>
+            </div>
+            <h1>REHAN SANDHI</h1>
+            <div class="tagline">Digital Ecosystem</div>
+        </div>
+
+        <div class="links-wrapper">
+            <div class="link-card" onclick="openLink('https://rs-appstore.blogspot.com')">
+                <div class="icon-wrapper"><i class="fab fa-google-play"></i></div>
+                <div class="text-content">
+                    <h2>RS App Store</h2>
+                    <p>Download my premium web applications</p>
+                </div>
+                <i class="fas fa-chevron-right arrow-icon"></i>
+            </div>
+
+            <div class="link-card" onclick="openLink('https://rehan-sandhi.blogspot.com')">
+                <div class="icon-wrapper"><i class="fas fa-rss"></i></div>
+                <div class="text-content">
+                    <h2>Verified Blog</h2>
+                    <p>Stay updated with my latest milestones</p>
+                </div>
+                <i class="fas fa-chevron-right arrow-icon"></i>
+            </div>
+
+            <div class="link-card" onclick="openLink('https://rehansandhi181.blogspot.com')">
+                <div class="icon-wrapper"><i class="fas fa-user-tie"></i></div>
+                <div class="text-content">
+                    <h2>Official Portfolio</h2>
+                    <p>Explore my professional work & skills</p>
+                </div>
+                <i class="fas fa-chevron-right arrow-icon"></i>
+            </div>
+
+            <a href="https://noor-in.netlify.app" class="link-card card-noor" target="_blank">
+                <div class="icon-wrapper"><i class="fas fa-feather-alt"></i></div>
+                <div class="text-content">
+                    <h2>Noor Shayari</h2>
+                    <p>Join my social media shayari platform</p>
+                </div>
+                <i class="fas fa-external-link-alt arrow-icon" style="font-size: 16px;"></i>
+            </a>
+        </div>
+    </div>
+
+    <div id="loader-view">
+        <div class="spinner"></div>
+        <h2>Loading...</h2>
+    </div>
+
+    <div id="iframe-view">
+        <iframe id="app-frame" src=""></iframe>
+    </div>
+
+    <script>
+        const mainView = document.getElementById('main-view');
+        const iframeView = document.getElementById('iframe-view');
+        const loaderView = document.getElementById('loader-view');
+        const appFrame = document.getElementById('app-frame');
+        const backBtn = document.getElementById('back-btn');
+        const dropdown = document.getElementById('menu-dropdown');
+
+        function openLink(url) {
+            mainView.style.display = 'none';
+            iframeView.style.display = 'block';
+            loaderView.style.display = 'flex';
+            backBtn.style.visibility = 'visible';
+            appFrame.src = url;
+
+            appFrame.onload = function() {
+                loaderView.style.display = 'none';
+            };
+
+            dropdown.classList.remove('active');
+        }
+
+        function goBack() {
+            iframeView.style.display = 'none';
+            loaderView.style.display = 'none';
+            mainView.style.display = 'flex';
+            backBtn.style.visibility = 'hidden';
+            appFrame.src = '';
+            appFrame.onload = null; 
+        }
+
+        function toggleMenu() {
+            dropdown.classList.toggle('active');
+        }
+
+        window.onclick = function(event) {
+            // Agar click menu button ya links par nahi hai toh menu band karein
+            if (!event.target.closest('.dropdown') && dropdown.classList.contains('active')) {
+                dropdown.classList.remove('active');
+            }
+        }
+    </script>
 </body>
 </html>
