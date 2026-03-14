@@ -141,13 +141,30 @@
 
         /* Main View Container */
         #main-view {
-            display: flex;
+            display: none; /* Pehle ise chhipa dein taaki loader dikhe */
             flex-direction: column;
             align-items: center;
             justify-content: center;
             width: 100%;
             padding: 100px 20px 40px;
             transition: opacity 0.3s;
+        }
+
+        /* Loading Screen CSS */
+        #loader-view {
+            display: flex; /* Page start par ise visible rakhein */
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 60px);
+            background-color: var(--bg-base); /* Theme se match karne ke liye */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 600;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
         }
 
         /* Iframe View */
@@ -169,23 +186,6 @@
             background: #fff;
         }
 
-        /* Loading Screen CSS */
-        #loader-view {
-            display: none;
-            position: fixed;
-            top: 60px;
-            left: 0;
-            width: 100%;
-            height: calc(100vh - 60px);
-            background-color: #121212;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 600;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-        }
-
         .spinner {
             width: 50px;
             height: 50px;
@@ -196,16 +196,21 @@
             margin-bottom: 20px;
         }
 
-        #loader-view h2 {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            font-size: 24px;
+                #loader-view h1, #loader-view h2 {
+            font-family: 'Share Tech Mono', monospace; /* Font ko baaki app jaisa premium banaya */
+            margin: 10px 0;
+            text-align: center; /* Ye text ko hamesha center rakhega */
+            padding: 0 15px; /* Mobile par edges se text ko door rakhega */
         }
 
         #loader-view h1 {
-            font-family: Arial, sans-serif;
-            margin: 0;
             font-size: 24px;
+            color: var(--accent-cyan);
+        }
+
+        #loader-view h2 {
+            font-size: 18px;
+            color: var(--text-secondary);
         }
 
         @keyframes spin {
@@ -501,12 +506,25 @@
     </div>
 
     <script>
+        // Variables ko sirf ek hi baar yahan define karna hai
         const mainView = document.getElementById('main-view');
         const iframeView = document.getElementById('iframe-view');
         const loaderView = document.getElementById('loader-view');
         const appFrame = document.getElementById('app-frame');
         const backBtn = document.getElementById('back-btn');
         const dropdown = document.getElementById('menu-dropdown');
+
+        // Page Start Loader Logic
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                loaderView.style.display = 'none'; 
+                mainView.style.display = 'flex';   
+                const welcomeMsg = document.querySelector('#loader-view h1');
+                if (welcomeMsg) {
+                    welcomeMsg.style.display = 'none';
+                }
+            }, 1000); // 1 second ka timer
+        });
 
         function openLink(url) {
             mainView.style.display = 'none';
@@ -536,7 +554,6 @@
         }
 
         window.onclick = function(event) {
-            // Agar click menu button ya links par nahi hai toh menu band karein
             if (!event.target.closest('.dropdown') && dropdown.classList.contains('active')) {
                 dropdown.classList.remove('active');
             }
